@@ -5,7 +5,7 @@ Feature: Articles
     * def articleName = prefix +"_Hello world2"
 
 
-  @debug
+
   Scenario: Create an Article
     Given path  '/articles'
     And request
