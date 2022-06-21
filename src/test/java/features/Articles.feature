@@ -2,24 +2,16 @@ Feature: Articles
 
   Background:
     * url baseUrl
-    * def articleName = prefix +"_Hello world2"
-
+    * def dataGenerator = Java.type('helpers.DataGenerator')
+    * def articleName = dataGenerator.getArticleName()
+#    read from json
+    * def articleRequestBody =  read('classpath:/json/NewArticleRequest.json')
+    * print articleName
 
 
   Scenario: Create an Article
     Given path  '/articles'
-    And request
-    """
-    {
-      "article":
-          {
-          "tagList":["hello", "world"],
-          "title":"#(articleName)",
-          "description":"123",
-          "body":"123"
-          }
-    }
-    """
+    And request articleRequestBody
     When method Post
     Then status 200
     * def articleId = response.article.slug
@@ -30,18 +22,7 @@ Feature: Articles
 
   Scenario: Create and delete Article
     Given path  '/articles'
-    And request
-    """
-    {
-      "article":
-          {
-          "tagList":["hello", "world"],
-          "title":"#(articleName)",
-          "description":"123",
-          "body":"123"
-          }
-    }
-    """
+    And request articleRequestBody
     When method Post
     Then status 200
     * def articleId = response.article.slug
@@ -57,3 +38,11 @@ Feature: Articles
     When method get
     Then match response.articles[0].title != articleName
 
+  Scenario: Delete all Articles
+    Given path  '/articles'
+    When method Get
+    Then status 200
+    * def articleId = response.articles[0].slug
+    * def articlesNumber = response.articlesCount - 3
+    * def del = function(i){ return karate.call('classpath:/helpers/DeleteArticles.feature')}
+    * def foo = karate.repeat(articlesNumber, del )

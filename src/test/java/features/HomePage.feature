@@ -10,8 +10,8 @@ Feature: Udemy
     When method get
     Then status 200
     And match response.tags contains 'welcome'
-    And match response.tags contains ['welcome', 'world']
-    And match response.tags contains any [ 'bau', 'world']
+#    And match response.tags contains ['welcome', 'world']
+#    And match response.tags contains any [ 'bau', 'world']
 #    And match response.tags contains only [ 'world']
     And match response.tags !contains 'car'
 

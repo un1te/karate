@@ -14,6 +14,7 @@ function fn (){
 //    config.baseUrl = "https://api.realworld.io/api";
         config.email = "karate_1@gmail.com",
         config.password = "p@ssword"
+        config.user = "uuunite"
         config.prefix = Math.random().toString(36).substring(2,7);
     } else if (env =='DEV'){
 
