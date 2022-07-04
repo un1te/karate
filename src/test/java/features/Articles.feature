@@ -18,6 +18,7 @@ Feature: Articles
     And path '/articles'
     When method Get
     Then match response.articles[0].title == articleName
+    * print response.articlesCount
 
 
   Scenario: Create and delete Article
@@ -40,9 +41,11 @@ Feature: Articles
 
   Scenario: Delete all Articles
     Given path  '/articles'
+    And param limit = 100
     When method Get
     Then status 200
     * def articleId = response.articles[0].slug
     * def articlesNumber = response.articlesCount - 3
     * def del = function(i){ return karate.call('classpath:/helpers/DeleteArticles.feature')}
-    * def foo = karate.repeat(articlesNumber, del )
+    * def delRun = karate.repeat(articlesNumber, del )
+

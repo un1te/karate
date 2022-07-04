@@ -15,6 +15,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
         <karate.version>1.2.0</karate.version>
+        <gatling.plugin.version>4.1.6</gatling.plugin.version>
     </properties>    
 
     <dependencies>         
@@ -29,6 +30,20 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-gatling</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-apache</artifactId>
+            <version>0.9.6</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -64,7 +79,24 @@
 <!--                        <karate.options>&#45;&#45;tags @smoke</karate.options>-->
 <!--                    </systemProperties>-->
                 </configuration>
-            </plugin>          
+            </plugin>
+            <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>4.1.6</version>
+                <configuration>
+                    <simulationsFolder>src/test/java/performance/</simulationsFolder>
+                    <configFolder>src/test/java/performance/data/</configFolder>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>        
     </build>       
     

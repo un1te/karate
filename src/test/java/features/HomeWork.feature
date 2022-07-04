@@ -1,6 +1,6 @@
 Feature: Home Work
 
-  Background: Preconditions
+  Background:
     * url baseUrl
     * def timeValidator = read('classpath:/helpers/TimeValidator.js')
 
@@ -29,7 +29,7 @@ Feature: Home Work
     And method Delete
     Then status 200
 
-
+@Ignore
   Scenario: Comment articles
     * def commentsSchema = read('classpath:/json/CommentsSchema.json')
     Given path '/articles'

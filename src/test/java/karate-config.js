@@ -1,10 +1,10 @@
 function fn (){
     var env = karate.env;                       // get sys property of karate.env
-    karate.log("karate env is: ", env);
 
     if(!env) {
         env = 'QA'
     }
+    karate.log("karate env is: ", env);
 
     var config = {
         baseUrl: "https://api.realworld.io/api"
